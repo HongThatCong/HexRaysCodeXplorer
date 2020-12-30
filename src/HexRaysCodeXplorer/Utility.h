@@ -1,25 +1,25 @@
-/*	Copyright (c) 2013-2016
-	REhints <info@rehints.com>
-	All rights reserved.
-	
-	==============================================================================
-	
-	This file is part of HexRaysCodeXplorer
+/*  Copyright (c) 2013-2016
+    REhints <info@rehints.com>
+    All rights reserved.
 
- 	HexRaysCodeXplorer is free software: you can redistribute it and/or modify it
- 	under the terms of the GNU General Public License as published by
- 	the Free Software Foundation, either version 3 of the License, or
- 	(at your option) any later version.
+    ==============================================================================
 
- 	This program is distributed in the hope that it will be useful, but
- 	WITHOUT ANY WARRANTY; without even the implied warranty of
- 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- 	General Public License for more details.
+    This file is part of HexRaysCodeXplorer
 
- 	You should have received a copy of the GNU General Public License
- 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    HexRaysCodeXplorer is free software: you can redistribute it and/or modify it
+    under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
 
-	==============================================================================
+    This program is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+    ==============================================================================
 */
 
 #ifndef __H_UTILITY__
@@ -34,11 +34,11 @@
 // Simple CustomView Form Init
 struct string_view_form_info_t
 {
-	TWidget *widget;
-	TWidget *cv;
-	TWidget *codeview;
-	strvec_t sv;
-	string_view_form_info_t(TWidget *f) : widget(f), cv(nullptr), codeview(nullptr) {}
+    TWidget *widget;
+    TWidget *cv;
+    TWidget *codeview;
+    strvec_t sv;
+    string_view_form_info_t(TWidget *f) : widget(f), cv(nullptr), codeview(nullptr) {}
 };
 
 bool idaapi show_string_in_custom_view(void *ud, const qstring& title, const qstring& str);
@@ -48,7 +48,7 @@ bool idaapi show_string_in_custom_view(void *ud, const qstring& title, const qst
 //#define SIZESTR(x) (sizeof(x) - 1)
 
 #ifndef _countof
-#	define _countof(x) (sizeof((x)) / sizeof((x)[0]))
+#   define _countof(x) (sizeof((x)) / sizeof((x)[0]))
 #endif // _countof
 
 
@@ -57,8 +57,8 @@ typedef std::set<ea_t> eaSet;
 typedef std::map<ea_t, UINT> eaRefMap;
 struct earef
 {
-	ea_t ea;
-	UINT refs;
+    ea_t ea;
+    UINT refs;
 };
 
 
@@ -69,15 +69,15 @@ struct earef
 // Get IDA 32 bit value with verification
 template <class T> bool getVerify32_t(ea_t eaPtr, T &rValue)
 {
-	// Location valid?
-	if (is_loaded(eaPtr))
-	{
-		// Get 32bit value
-		rValue = (T) get_32bit(eaPtr);
-		return true;
-	}
+    // Location valid?
+    if (is_loaded(eaPtr))
+    {
+        // Get 32bit value
+        rValue = (T) get_32bit(eaPtr);
+        return true;
+    }
 
-	return false;
+    return false;
 }
 
 
@@ -92,9 +92,9 @@ bool compilerIs(const char *name);
 inline ea_t getEa(ea_t ea)
 {
 #ifndef __EA64__
-	return (ea_t)get_32bit(ea);
+    return (ea_t)get_32bit(ea);
 #else // __EA64__
-	return (ea_t)get_64bit(ea);
+    return (ea_t)get_64bit(ea);
 #endif // __EA64__
 }
 
@@ -103,9 +103,9 @@ inline ea_t getEa(ea_t ea)
 inline bool isEa(flags_t f)
 {
 #ifndef __EA64__
-	return is_dword(f);
+    return is_dword(f);
 #else // __EA64__
-	return is_qword(f);
+    return is_qword(f);
 #endif // __EA64__
 }
 
@@ -113,24 +113,24 @@ inline bool isEa(flags_t f)
 #define _SHA_enum_
 enum
 {
-	shaSuccess = 0,
-	shaNull,  // Null pointer parameter
-	shaInputTooLong, // input data too long
-	shaStateError // called Input after Result
+    shaSuccess = 0,
+    shaNull,  // Null pointer parameter
+    shaInputTooLong, // input data too long
+    shaStateError // called Input after Result
 };
 #endif
 #define SHA1HashSize 20
 
 typedef struct SHA1Context
 {
-	uint32_t Intermediate_Hash[SHA1HashSize / 4]; // Message Digest
-	uint32_t Length_Low; // Message length in bits
-	uint32_t Length_High; // Message length in bits
-						  // Index into message block array
-	int_least16_t Message_Block_Index;
-	uint8_t Message_Block[64]; // 512-bit message blocks
-	int Computed; // Is the digest computed?
-	int Corrupted; // Is the message digest corrupted?
+    uint32_t Intermediate_Hash[SHA1HashSize / 4]; // Message Digest
+    uint32_t Length_Low; // Message length in bits
+    uint32_t Length_High; // Message length in bits
+                          // Index into message block array
+    int_least16_t Message_Block_Index;
+    uint8_t Message_Block[64]; // 512-bit message blocks
+    int Computed; // Is the digest computed?
+    int Corrupted; // Is the message digest corrupted?
 } SHA1Context;
 
 int SHA1Reset(SHA1Context *);
@@ -146,8 +146,8 @@ bool MakeArray(ea_t ea, size_t nitems);
 
 inline bool ends_with(std::string const & value, std::string const & ending)
 {
-	if (ending.size() > value.size()) return false;
-	return std::equal(ending.rbegin(), ending.rend(), value.rbegin());
+    if (ending.size() > value.size()) return false;
+    return std::equal(ending.rbegin(), ending.rend(), value.rbegin());
 }
 
 #endif

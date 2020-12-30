@@ -1,25 +1,25 @@
-/*	Copyright (c) 2013-2015
-	REhints <info@rehints.com>
-	All rights reserved.
-	
-	==============================================================================
-	
-	This file is part of HexRaysCodeXplorer
+/*  Copyright (c) 2013-2015
+    REhints <info@rehints.com>
+    All rights reserved.
 
- 	HexRaysCodeXplorer is free software: you can redistribute it and/or modify it
- 	under the terms of the GNU General Public License as published by
- 	the Free Software Foundation, either version 3 of the License, or
- 	(at your option) any later version.
+    ==============================================================================
 
- 	This program is distributed in the hope that it will be useful, but
- 	WITHOUT ANY WARRANTY; without even the implied warranty of
- 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- 	General Public License for more details.
+    This file is part of HexRaysCodeXplorer
 
- 	You should have received a copy of the GNU General Public License
- 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    HexRaysCodeXplorer is free software: you can redistribute it and/or modify it
+    under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
 
-	==============================================================================
+    This program is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+    ==============================================================================
 */
 
 #ifndef __H_COMMON__
@@ -36,9 +36,6 @@
 #else
     #define DLLEXPORT
 #endif
-
-
-
 
 #if !defined (__LINUX__) && !defined (__MAC__)
 #pragma warning (disable: 4996 4800 )
@@ -57,9 +54,19 @@
 #pragma warning(push)
 #pragma warning(disable:4309 4244 4267)           // disable "truncation of constant value" warning from IDA SDK, conversion from 'ssize_t' to 'int', possible loss of data
 #endif // __NT__
+
 #ifndef USE_DANGEROUS_FUNCTIONS
 #define USE_DANGEROUS_FUNCTIONS
 #endif
+
+#ifndef __DEFINE_PLUGIN_RETURN_CODES__
+#define __DEFINE_PLUGIN_RETURN_CODES__
+#endif
+
+#ifdef NO_OBSOLETE_FUNCS
+#undef NO_OBSOLETE_FUNCS
+#endif
+
 #ifdef __clang__
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wsign-compare"
@@ -67,6 +74,7 @@
 #pragma clang diagnostic ignored "-Wlogical-op-parentheses"
 #pragma clang diagnostic ignored "-Wunused-private-field"
 #endif
+
 #include <hexrays.hpp>
 #include <ida.hpp>
 #include <idp.hpp>
@@ -89,7 +97,6 @@
 #include <moves.hpp>
 #include <bytes.hpp>
 #include <unordered_map>
-
 
 #ifdef __NT__
 #pragma warning(pop)
@@ -129,8 +136,6 @@ void print1wrapper(const T *e, qstring *qbuf, const cfunc_t *func) {
       e, qbuf, func);
 }
 
-
-
 #include <cstring>
 #include <cstdarg>
 #include <cstdint>
@@ -145,4 +150,3 @@ void print1wrapper(const T *e, qstring *qbuf, const cfunc_t *func) {
 #include <sstream>
 
 #endif
-

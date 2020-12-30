@@ -1,25 +1,25 @@
-/*	Copyright (c) 2013-2015
-	REhints <info@rehints.com>
-	All rights reserved.
-	
-	==============================================================================
-	
-	This file is part of HexRaysCodeXplorer
+/*  Copyright (c) 2013-2015
+    REhints <info@rehints.com>
+    All rights reserved.
 
- 	HexRaysCodeXplorer is free software: you can redistribute it and/or modify it
- 	under the terms of the GNU General Public License as published by
- 	the Free Software Foundation, either version 3 of the License, or
- 	(at your option) any later version.
+    ==============================================================================
 
- 	This program is distributed in the hope that it will be useful, but
- 	WITHOUT ANY WARRANTY; without even the implied warranty of
- 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- 	General Public License for more details.
+    This file is part of HexRaysCodeXplorer
 
- 	You should have received a copy of the GNU General Public License
- 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    HexRaysCodeXplorer is free software: you can redistribute it and/or modify it
+    under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
 
-	==============================================================================
+    This program is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+    ==============================================================================
 */
 
 #ifndef __H_OBJECTEXPLORER__
@@ -29,23 +29,23 @@
 // Object Explorer Form Init
 struct object_explorer_info_t
 {
-	TWidget *widget;
-	TWidget *cv;
-	TWidget *codeview;
-	strvec_t sv;
-	explicit object_explorer_info_t(TWidget *f) : widget(f), cv(nullptr), codeview(nullptr) {}
+    TWidget *widget;
+    TWidget *cv;
+    TWidget *codeview;
+    strvec_t sv;
+    explicit object_explorer_info_t(TWidget *f) : widget(f), cv(nullptr), codeview(nullptr) {}
 };
 
 void object_explorer_form_init();
 
 
-// VTBL 
+// VTBL
 struct VTBL_info_t
 {
-	qstring vtbl_name;
-	ea_t ea_begin;
-	ea_t ea_end;
-	asize_t methods;
+    qstring vtbl_name;
+    ea_t ea_begin;
+    ea_t ea_end;
+    asize_t methods;
 };
 
 
@@ -62,54 +62,54 @@ void search_objects(bool b_force = true);
 
 template <class T> BOOL verify_32_t(ea_t ea_ptr, T &rvalue)
 {
-	if (get_flags(ea_ptr))
-	{
-		rvalue = (T) get_32bit(ea_ptr);
-		return TRUE;
-	}
+    if (get_flags(ea_ptr))
+    {
+        rvalue = (T) get_32bit(ea_ptr);
+        return TRUE;
+    }
 
-	return FALSE;
+    return FALSE;
 }
 
 
 // RTTI
 struct RTTI_info_t
 {
-	PVOID vftable;
-	PVOID m_data;
-	char  m_d_name[MAXSTR]; // mangled name (prefix: .?AV=classes, .?AU=structs)
+    PVOID vftable;
+    PVOID m_data;
+    char  m_d_name[MAXSTR]; // mangled name (prefix: .?AV=classes, .?AU=structs)
 };
 
 //static BOOL is_valid_rtti(RTTI_info_t *pIDA);
 //static LPSTR get_name(IN RTTI_info_t *pIDA, OUT LPSTR pszBufer, int iSize);
 
-// returns TRUE if mangled name is a unknown type name		
+// returns TRUE if mangled name is a unknown type name
 static inline BOOL is_type_name(LPCSTR pszName){ return((*((PUINT)pszName) & 0xFFFFFF) == 0x413F2E /*".?A"*/); }
 
 
 struct PMD
 {
-	int mdisp;	// member
-	int pdisp;  // vftable
-	int vdisp;  // place inside vftable
+    int mdisp;  // member
+    int pdisp;  // vftable
+    int vdisp;  // place inside vftable
 };
 
 
 struct RTTIBaseClassDescriptor
 {
-	RTTI_info_t *pTypeDescriptor;	// type descriptor of the class
-	UINT numContainedBases;			// number of nested classes
-	PMD  pmd;						// pointer-to-member displacement info
-	UINT attributes;				// flags (usually 0)
+    RTTI_info_t *pTypeDescriptor;   // type descriptor of the class
+    UINT numContainedBases;         // number of nested classes
+    PMD  pmd;                       // pointer-to-member displacement info
+    UINT attributes;                // flags (usually 0)
 };
 
 
 struct RTTIClassHierarchyDescriptor
 {
-	UINT signature;			// always zero?
-	UINT attributes;		// bit 0 set = multiple inheritance, bit 1 set = virtual inheritance
-	UINT numBaseClasses;	// number of classes in pBaseClassArray
-	RTTIBaseClassDescriptor **pBaseClassArray;
+    UINT signature;         // always zero?
+    UINT attributes;        // bit 0 set = multiple inheritance, bit 1 set = virtual inheritance
+    UINT numBaseClasses;    // number of classes in pBaseClassArray
+    RTTIBaseClassDescriptor **pBaseClassArray;
 };
 
 const UINT CHDF_MULTIPLE = (1 << 0);
@@ -118,11 +118,11 @@ const UINT CHDF_VIRTUAL = (1 << 1);
 
 struct RTTICompleteObjectLocator
 {
-	UINT signature;					// always zero ?
-	UINT offset;					// offset of this vftable in the complete class
-	UINT cdOffset;					// constructor displacement offset
-	RTTI_info_t *pTypeDescriptor;	// TypeDescriptor of the complete class
-	RTTIClassHierarchyDescriptor *pClassDescriptor; // 10 Describes inheritance hierarchy
+    UINT signature;                 // always zero ?
+    UINT offset;                    // offset of this vftable in the complete class
+    UINT cdOffset;                  // constructor displacement offset
+    RTTI_info_t *pTypeDescriptor;   // TypeDescriptor of the complete class
+    RTTIClassHierarchyDescriptor *pClassDescriptor; // 10 Describes inheritance hierarchy
 };
 
 bool get_text_disasm(ea_t ea, qstring& rv);

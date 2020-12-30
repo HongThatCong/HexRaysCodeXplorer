@@ -1,25 +1,25 @@
-/*	Copyright (c) 2013-2020
-	REhints <info@rehints.com>
-	All rights reserved.
-	
-	==============================================================================
-	
-	This file is part of HexRaysCodeXplorer
+/*  Copyright (c) 2013-2020
+    REhints <info@rehints.com>
+    All rights reserved.
 
- 	HexRaysCodeXplorer is free software: you can redistribute it and/or modify it
- 	under the terms of the GNU General Public License as published by
- 	the Free Software Foundation, either version 3 of the License, or
- 	(at your option) any later version.
+    ==============================================================================
 
- 	This program is distributed in the hope that it will be useful, but
- 	WITHOUT ANY WARRANTY; without even the implied warranty of
- 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- 	General Public License for more details.
+    This file is part of HexRaysCodeXplorer
 
- 	You should have received a copy of the GNU General Public License
- 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    HexRaysCodeXplorer is free software: you can redistribute it and/or modify it
+    under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
 
-	==============================================================================
+    This program is distributed in the hope that it will be useful, but
+    WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+    ==============================================================================
 */
 
 #ifndef __H_FUNCCTREEDUMPER__
@@ -30,21 +30,21 @@
 // Helper class to get ctree
 struct ctree_dumper_t final : public ctree_parentee_t
 {
-	ctree_dumper_t() : ctree_parentee_t(true) {}
-	qstring ctree_dump;
-	qstring ctree_for_hash;
+    ctree_dumper_t() : ctree_parentee_t(true) {}
+    qstring ctree_dump;
+    qstring ctree_for_hash;
 
-	int process(citem_t *i);
-	int process_leave(citem_t *i);
-	void process_for_hash(citem_t *i);
-	// We treat expressions and statements the same way: add them to the graph
-	int idaapi visit_insn(cinsn_t *i) override { return process(i); }
-	int idaapi visit_expr(cexpr_t *e) override { return process(e); }
-	// We treat expressions and statements the same way: add them to the graph
-	int idaapi leave_insn(cinsn_t *i) override { return process_leave(i); }
-	int idaapi leave_expr(cexpr_t *e) override { return process_leave(e); }
-	static bool idaapi filter_citem(citem_t *item);
-	void parse_ctree_item(citem_t *item, qstring& rv) const;
+    int process(citem_t *i);
+    int process_leave(citem_t *i);
+    void process_for_hash(citem_t *i);
+    // We treat expressions and statements the same way: add them to the graph
+    int idaapi visit_insn(cinsn_t *i) override { return process(i); }
+    int idaapi visit_expr(cexpr_t *e) override { return process(e); }
+    // We treat expressions and statements the same way: add them to the graph
+    int idaapi leave_insn(cinsn_t *i) override { return process_leave(i); }
+    int idaapi leave_expr(cexpr_t *e) override { return process_leave(e); }
+    static bool idaapi filter_citem(citem_t *item);
+    void parse_ctree_item(citem_t *item, qstring& rv) const;
 };
 
 

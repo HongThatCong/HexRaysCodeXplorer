@@ -58,18 +58,18 @@ INCLUDES=-I$(IDA_SDK)/include -I$(HEXRAYS_SDK)/include
 all: check-env HexRaysCodeXplorer.$(EXT)
 
 HexRaysCodeXplorer.$(EXT): $(OBJS)
-	#ln -f -s $(IDA_SDK)/lib/x64_linux_gcc_64/pro.a libpro.a
-	ln -f -s $(IDA_SDK)/lib/x86_mac_gcc_32/pro.a libpro.a
-	$(CC) $(LDFLAGS) $(LIBDIR) -o HexRaysCodeXplorer.$(EXT) $(OBJS) $(LIBS)
+    #ln -f -s $(IDA_SDK)/lib/x64_linux_gcc_64/pro.a libpro.a
+    ln -f -s $(IDA_SDK)/lib/x86_mac_gcc_32/pro.a libpro.a
+    $(CC) $(LDFLAGS) $(LIBDIR) -o HexRaysCodeXplorer.$(EXT) $(OBJS) $(LIBS)
 
 %.o: %.cpp
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+    $(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
-	rm -f $(OBJS) HexRaysCodeXplorer.$(EXT)
+    rm -f $(OBJS) HexRaysCodeXplorer.$(EXT)
 
 install:
-	cp -f HexRaysCodeXplorer.$(EXT) $(IDA_DIR)/plugins
+    cp -f HexRaysCodeXplorer.$(EXT) $(IDA_DIR)/plugins
 
 check-env:
 ifndef IDA_SDK

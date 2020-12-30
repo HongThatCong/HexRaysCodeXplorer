@@ -34,29 +34,29 @@ CFLAGS=-m64 -fPIC -D__LINUX__ -D__PLUGIN__ -std=c++11 -D__X64__ -D_GLIBCXX_USE_C
 LIBS=-lc -lpthread -ldl
 
 ifeq ($(EA64),1)
-	CFLAGS+=-D__EA64__
-	LIBS+=-lida64
-	EXT=so
+    CFLAGS+=-D__EA64__
+    LIBS+=-lida64
+    EXT=so
     SUFFIX=64
 else
-	EXT=so
-	LIBS+=-lida
+    EXT=so
+    LIBS+=-lida
     SUFFIX=
 endif
 
 all: check-env clean HexRaysCodeXplorer$(SUFFIX).$(EXT)
 
-HexRaysCodeXplorer$(SUFFIX).$(EXT): $(OBJS)	
-	$(CC) $(LDFLAGS) $(LIBDIR) -o HexRaysCodeXplorer$(SUFFIX).$(EXT) $(OBJS) $(LIBS)
+HexRaysCodeXplorer$(SUFFIX).$(EXT): $(OBJS)
+    $(CC) $(LDFLAGS) $(LIBDIR) -o HexRaysCodeXplorer$(SUFFIX).$(EXT) $(OBJS) $(LIBS)
 
 %.o: %.cpp
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+    $(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
-	rm -f $(OBJS) HexRaysCodeXplorer$(SUFFIX).$(EXT)
+    rm -f $(OBJS) HexRaysCodeXplorer$(SUFFIX).$(EXT)
 
 install:
-	cp -f HexRaysCodeXplorer$(SUFFIX).$(EXT) $(IDA_DIR)/plugins
+    cp -f HexRaysCodeXplorer$(SUFFIX).$(EXT) $(IDA_DIR)/plugins
 
 check-env:
 ifndef IDA_SDK

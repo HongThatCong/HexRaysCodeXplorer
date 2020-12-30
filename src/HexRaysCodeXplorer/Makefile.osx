@@ -29,17 +29,17 @@ SRC=$(SRCDIR)CodeXplorer.cpp \
 all: check-env HexRaysCodeXplorer.pmc HexRaysCodeXplorer.pmc64
 
 HexRaysCodeXplorer.pmc: $(SRC)
-	$(CXX) $(LDFLAGS) $(SRC) $(CXXFLAGS) -L. -L$(IDA_DIR) $(INCLUDES) -D__MAC__=1 $(LIBS) -lida -o HexRaysCodeXplorer.pmc
+    $(CXX) $(LDFLAGS) $(SRC) $(CXXFLAGS) -L. -L$(IDA_DIR) $(INCLUDES) -D__MAC__=1 $(LIBS) -lida -o HexRaysCodeXplorer.pmc
 
 HexRaysCodeXplorer.pmc64: $(SRC)
-	$(CXX) $(LDFLAGS) $(SRC) $(CXXFLAGS) -L. -L$(IDA_DIR) $(INCLUDES) -D__MAC__=1 -D__EA64__=1 $(LIBS) -lida64 -o HexRaysCodeXplorer.pmc64
+    $(CXX) $(LDFLAGS) $(SRC) $(CXXFLAGS) -L. -L$(IDA_DIR) $(INCLUDES) -D__MAC__=1 -D__EA64__=1 $(LIBS) -lida64 -o HexRaysCodeXplorer.pmc64
 
 clean:
-	rm -f HexRaysCodeXplorer.pmc HexRaysCodeXplorer.pmc64
+    rm -f HexRaysCodeXplorer.pmc HexRaysCodeXplorer.pmc64
 
 install:
-	cp -f HexRaysCodeXplorer.pmc $(IDA_DIR)/plugins/
-	cp -f HexRaysCodeXplorer.pmc64 $(IDA_DIR)/plugins/
+    cp -f HexRaysCodeXplorer.pmc $(IDA_DIR)/plugins/
+    cp -f HexRaysCodeXplorer.pmc64 $(IDA_DIR)/plugins/
 
 check-env:
 ifndef IDA_SDK
@@ -48,6 +48,6 @@ endif
 ifndef IDA_DIR
     $(error IDA_DIR is undefined)
 endif
-	ln -f -s $(IDA_SDK)/lib/x86_mac_gcc_32/pro.a libpro.a
+    ln -f -s $(IDA_SDK)/lib/x86_mac_gcc_32/pro.a libpro.a
 
 .PHONY: check-env
